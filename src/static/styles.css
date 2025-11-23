@@ -142,3 +142,82 @@ footer {
   padding: 20px;
   color: #666;
 }
+
+/* Participants section styling */
+.participants {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #eee;
+}
+
+.participants-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.participant-count {
+  background: #eef2ff;
+  color: #1a237e;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.participants-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 6px;
+  color: #444;
+  max-height: 120px;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.participants-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 8px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.participant-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.participant-delete {
+  background: transparent;
+  border: none;
+  color: #c62828;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.participant-delete:hover {
+  background: rgba(198,40,40,0.08);
+}
+
+.no-participants {
+  color: #777;
+  font-style: italic;
+  font-size: 14px;
+  padding: 6px 0;
+}
+
+/* Improve responsiveness for cards with list overflow */
+@media (max-width: 600px) {
+  .participants-list {
+    max-height: 90px;
+  }
+}

@@ -142,3 +142,57 @@ footer {
   padding: 20px;
   color: #666;
 }
+
+/* Participants section styling */
+.participants {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #eee;
+}
+
+.participants-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.participant-count {
+  background: #eef2ff;
+  color: #1a237e;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.participants-list {
+  list-style: disc;
+  margin-left: 18px;
+  margin-top: 6px;
+  color: #444;
+  max-height: 120px;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.participants-list li {
+  padding: 4px 0;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.no-participants {
+  color: #777;
+  font-style: italic;
+  font-size: 14px;
+  padding: 6px 0;
+}
+
+/* Improve responsiveness for cards with list overflow */
+@media (max-width: 600px) {
+  .participants-list {
+    max-height: 90px;
+  }
+}

@@ -41,7 +41,20 @@ document.addEventListener("DOMContentLoaded", () => {
     ul.className = "participants-list";
     participants.forEach(email => {
       const li = document.createElement("li");
-      li.textContent = email;
+
+      const span = document.createElement("span");
+      span.className = "participant-email";
+      span.textContent = email;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "participant-delete";
+      btn.title = `Unregister ${email}`;
+      btn.innerHTML = `\u{1F5D1}`; // trash can emoji as icon
+
+      // click handler will be attached later via event delegation in renderActivities
+      li.appendChild(span);
+      li.appendChild(btn);
       ul.appendChild(li);
     });
     container.appendChild(ul);
@@ -78,6 +91,36 @@ document.addEventListener("DOMContentLoaded", () => {
       // participants section
       const participantsSection = createParticipantsSection(info.participants || []);
       card.appendChild(participantsSection);
+
+      // Attach event listener for delete buttons (delegation scoped to this card)
+      participantsSection.addEventListener("click", async (ev) => {
+        const btn = ev.target.closest(".participant-delete");
+        if (!btn) return;
+        const li = btn.closest("li");
+        if (!li) return;
+        const emailSpan = li.querySelector(".participant-email");
+        if (!emailSpan) return;
+        const email = emailSpan.textContent.trim();
+
+        if (!confirm(`Unregister ${email} from ${name}?`)) return;
+
+        try {
+          const res = await fetch(`/activities/${encodeURIComponent(name)}/unregister?email=${encodeURIComponent(email)}`, {
+            method: "DELETE"
+          });
+
+          if (res.ok) {
+            await loadActivities();
+            showMessage(`Unregistered ${email} from ${name}`, "success");
+          } else {
+            const err = await res.json().catch(() => ({}));
+            showMessage(err.detail || "Failed to unregister", "error");
+          }
+        } catch (err) {
+          console.error(err);
+          showMessage("Network error when unregistering", "error");
+        }
+      });
 
       activitiesListEl.appendChild(card);
     });
